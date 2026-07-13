@@ -370,7 +370,6 @@ Environment-wide searches for the discovered indicators did not identify additio
 - PowerShell activity requires context; the command line, parent process, account, path, and timing determine significance.
 - A suspicious script on disk does not prove execution.
 - Execution does not prove impact until associated file activity is identified.
-- Environment-wide IOC scoping should be completed before documenting the incident as limited to one endpoint.
 - MITRE ATT&CK mappings should reflect observed behavior and clearly distinguish confirmed evidence from contextual assumptions.
 
 ---
