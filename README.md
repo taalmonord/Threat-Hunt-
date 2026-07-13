@@ -1,3 +1,23 @@
+<img width="1316" height="415" alt="08_impact_employeerecords" src="https://github.com/user-attachments/assets/25a36938-e60c-4fab-94fc-e733c8b2bf7b" />
+<img width="1316" height="398" alt="07_impact_projectlist" src="https://github.com/user-attachments/assets/52f33567-86c6-4400-bd52-f574b14f5173" />
+<img width="1316" height="411" alt="06_impact_companyfinancials" src="https://github.com/user-attachments/assets/587b8cac-3e67-4e3b-899b-5179e9fcd3a7" />
+<img width="1316" height="417" alt="05_impact_temp_csv" src="https://github.com/user-attachments/assets/4c97a123-4501-4cfb-8e23-8f18c42c8389" />
+<img width="1160" height="481" alt="04_impact_query_first_result" src="https://github.com/user-attachments/assets/93bce041-15dd-49e1-8d0b-359a4fe749e1" />
+<img width="1316" height="242" alt="03_process_execution_evidence" src="https://github.com/user-attachments/assets/223e4507-82ec-401b-b141-f90407968879" />
+<img width="1316" height="367" alt="02_payload_creation_evidence" src="https://github.com/user-attachments/assets/23078067-8c30-421e-b317-802a68da489f" />
+<img width="1340" height="625" alt="01_ps1_broad_search_results" src="https://github.com/user-attachments/assets/ea27f978-6556-48ee-afd4-dd1c6cc9cb46" />
+<img width="1316" height="592" alt="10_mde_device_isolation" src="https://github.com/user-attachments/assets/27ea390e-12bc-46f9-8323-782357e828d9" />
+<img width="1316" height="373" alt="09_impact_ransom_note" src="https://github.com/user-attachments/assets/b9c8e6e6-8ea5-4040-a389-7121a0fd1f6c" />
+<img width="1316" height="415" alt="08_impact_employeerecords" src="https://github.com/user-attachments/assets/e1cfa791-5248-45c7-afa9-84e4cf428336" />
+<img width="1316" height="398" alt="07_impact_projectlist" src="https://github.com/user-attachments/assets/5b667f20-c36b-4821-b9e2-e38092edc0ac" />
+<img width="1316" height="411" alt="06_impact_companyfinancials" src="https://github.com/user-attachments/assets/afab4eb8-e5d6-44a5-aab3-f2b10ac8b9ec" />
+<img width="1316" height="417" alt="05_impact_temp_csv" src="https://github.com/user-attachments/assets/403b3120-2cd7-48cf-88fa-81895e8c3eae" />
+<img width="1160" height="481" alt="04_impact_query_first_result" src="https://github.com/user-attachments/assets/b9910426-cbeb-46cd-aa56-b462672c3c4e" />
+<img width="1316" height="242" alt="03_process_execution_evidence" src="https://github.com/user-attachments/assets/00648e84-06eb-4d64-b212-9d8008cbaedd" />
+<img width="1316" height="367" alt="02_payload_creation_evidence" src="https://github.com/user-attachments/assets/f486bab0-9eb4-412e-aeba-55f08dd9d866" />
+<img width="1340" height="625" alt="01_ps1_broad_search_results" src="https://github.com/user-attachments/assets/d370bfec-cd85-4f40-be0e-291ee4072482" />
+<img width="1316" height="592" alt="10_mde_device_isolation" src="https://github.com/user-attachments/assets/94df621a-2058-4190-907e-df588c7b0db5" />
+<img width="1316" height="373" alt="09_impact_ransom_note" src="https://github.com/user-attachments/assets/eab26d62-51aa-49e5-9dd7-8f2298ba4e1a" />
 # PwnCrypt Ransomware Threat Hunt
 
 > **Environment:** Controlled Microsoft Defender for Endpoint lab  
