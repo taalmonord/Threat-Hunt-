@@ -1,14 +1,59 @@
+# Official [Cyber Range](http://joshmadakor.tech/cyber-range) Project
+
 # PwnCrypt Ransomware Threat Hunt
 
-> **Environment:** Controlled Microsoft Defender for Endpoint lab
-> **Affected device:** `ta-zero-day`
-> **Account:** `alex`
-> **Investigation date:** July 12, 2026
-> **Status:** Execution and ransomware impact confirmed; endpoint isolated
+In this project, we conduct a structured threat hunt for a simulated PwnCrypt ransomware incident using Microsoft Defender for Endpoint Advanced Hunting.
+
+_**Inception State:**_ A newly announced ransomware threat may have reached an environment with immature security controls, requiring investigators to determine whether the payload was present, executed, and caused impact.
+
+_**Completion State:**_ PwnCrypt execution and ransomware impact are confirmed on one endpoint, the discovered indicators are scoped across the environment, the affected endpoint is isolated, and the observed behaviors are mapped to MITRE ATT&CK.
 
 ---
 
-## Executive Summary
+# Technology Utilized
+
+- Microsoft Defender for Endpoint (MDE)
+- Advanced Hunting with Kusto Query Language (KQL)
+- Windows endpoint process and file telemetry
+- PowerShell and Windows Command Shell analysis
+- MITRE ATT&CK Framework
+
+---
+
+# Project Details
+
+| Field | Value |
+|---|---|
+| Environment | Controlled Microsoft Defender for Endpoint lab |
+| Affected device | `ta-zero-day` |
+| Account | `alex` |
+| Investigation date | July 12, 2026 |
+| Status | Execution and ransomware impact confirmed; endpoint isolated |
+
+---
+
+# Table of Contents
+
+- [Executive Summary](#executive-summary)
+- [Step 1: Preparation](#step-1-preparation)
+- [Step 2: Data Collection](#step-2-data-collection)
+- [Step 3: Data Analysis and Investigation](#step-3-data-analysis-and-investigation)
+  - [PowerShell Script Discovery](#powershell-script-discovery)
+  - [Process Execution Pivot](#process-execution-pivot)
+  - [File-Impact Confirmation](#file-impact-confirmation)
+  - [Scope Assessment](#scope-assessment)
+- [Step 4: Timeline Summary](#step-4-timeline-summary)
+- [Step 5: MITRE ATT&CK TTP Mapping](#step-5-mitre-attck-ttp-mapping)
+- [Step 6: Response and Containment](#step-6-response-and-containment)
+- [Step 7: Final Assessment](#step-7-final-assessment)
+- [Step 8: Improvement Opportunities](#step-8-improvement-opportunities)
+- [Step 9: Key Takeaways](#step-9-key-takeaways)
+- [References](#references)
+- [Disclaimer](#disclaimer)
+
+---
+
+### Executive Summary
 
 This threat hunt investigated a simulated PwnCrypt ransomware outbreak using Microsoft Defender for Endpoint (MDE) Advanced Hunting.
 
@@ -16,7 +61,7 @@ The investigation confirmed that `C:\ProgramData\pwncrypt.ps1` was created and e
 
 Environment-wide searches for the discovered indicators returned activity only from `ta-zero-day`. The endpoint was isolated through Microsoft Defender for Endpoint to contain the threat.
 
-### Final Assessment
+#### Final Assessment
 
 | Assessment Area | Result | Evidence | Confidence |
 |---|---|---|---|
@@ -28,19 +73,19 @@ Environment-wide searches for the discovered indicators returned activity only f
 
 ---
 
-## 1. Preparation
+### Step 1) Preparation
 
-### Threat Context
+#### Threat Context
 
 The lab briefing described PwnCrypt as a PowerShell-based ransomware payload using AES-256 encryption, targeting directories such as `C:\Users\Public\Desktop` and appending a `.pwncrypt` marker to encrypted filenames (for example, `hello.txt` to `hello.pwncrypt.txt`). The encryption algorithm and target-directory description are scenario-provided context; the hunt independently confirmed execution and ransomware-related file impact through MDE telemetry.
 
 **Note on naming convention:** The observed files during this hunt used a `_pwncrypt` suffix inserted before the original extension (e.g., `CompanyFinancials_pwncrypt.csv`) rather than the `.pwncrypt.<ext>` pattern described in the original briefing. This discrepancy is documented rather than silently reconciled, since evidence should reflect what was actually observed in telemetry.
 
-### Hunt Hypothesis
+#### Hunt Hypothesis
 
 > PwnCrypt may have executed on an endpoint and produced observable PowerShell, file-creation, file-rename, and ransom-note activity. Given immature security controls and no user training at the organization, the ransomware may have reached the corporate network.
 
-### Known Behaviors and Expected Telemetry
+#### Known Behaviors and Expected Telemetry
 
 | Known Behavior | Expected MDE Evidence | Primary Table |
 |---|---|---|
@@ -50,7 +95,7 @@ The lab briefing described PwnCrypt as a PowerShell-based ransomware payload usi
 | Ransom note | Decryption-instructions file created | `DeviceFileEvents` |
 | Payload delivery | Download command, URL, or related network activity | `DeviceProcessEvents` / `DeviceNetworkEvents` |
 
-### Investigation Path
+#### Investigation Path
 
 1. Identify suspicious file artifacts.
 2. Record the device and timestamp.
@@ -64,7 +109,7 @@ The lab briefing described PwnCrypt as a PowerShell-based ransomware payload usi
 
 ---
 
-## 2. Data Collection
+### Step 2) Data Collection
 
 The hunt used Microsoft Defender for Endpoint Advanced Hunting.
 
@@ -78,9 +123,9 @@ Before applying indicator filters, file telemetry was verified for `ta-zero-day`
 
 ---
 
-## 3. Data Analysis and Investigation
+### Step 3) Data Analysis and Investigation
 
-### 3.1 PowerShell Script Discovery
+#### PowerShell Script Discovery
 
 The first query searched broadly for PowerShell scripts on the endpoint:
 
@@ -125,7 +170,7 @@ The payload `C:\ProgramData\pwncrypt.ps1` was created on `ta-zero-day` at approx
 
 ---
 
-### 3.2 Process Execution Pivot
+#### Process Execution Pivot
 
 The payload-creation timestamp was used to pivot into `DeviceProcessEvents`:
 
@@ -171,7 +216,7 @@ Separately, the `pwncrypt.ps1` file-creation event recorded `powershell.exe` wit
 
 ---
 
-### 3.3 File-Impact Confirmation
+#### File-Impact Confirmation
 
 File activity immediately before and after execution was reviewed:
 
@@ -220,7 +265,7 @@ The close timing, matching command line, same account, PwnCrypt filename markers
 
 ---
 
-### 3.4 Scope Assessment
+#### Scope Assessment
 
 The device restriction was removed from follow-up searches to check the wider environment for the discovered indicators.
 
@@ -260,7 +305,7 @@ DeviceProcessEvents
 
 ---
 
-## 4. Timeline Summary
+### Step 4) Timeline Summary
 
 | Time (EDT) | Event | Significance |
 |---|---|---|
@@ -274,7 +319,7 @@ DeviceProcessEvents
 
 ---
 
-## 5. MITRE ATT&CK TTP Mapping
+### Step 5) MITRE ATT&CK TTP Mapping
 
 Only techniques supported by collected evidence are included.
 
@@ -285,7 +330,7 @@ Only techniques supported by collected evidence are included.
 | Impact | [T1486 - Data Encrypted for Impact](https://attack.mitre.org/techniques/T1486/) | Multiple files were created or renamed with the `_pwncrypt` marker, and decryption instructions were generated. | Telemetry-confirmed | High |
 | Command and Control | [T1105 - Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105/) | The lab scenario specified `Invoke-WebRequest` to retrieve `pwncrypt.ps1` from an external GitHub location. | Scenario-derived; not independently recovered from MDE telemetry | Medium |
 
-### Mapping Notes
+#### Mapping Notes
 
 **T1059.001 - PowerShell:** The strongest execution evidence was the direct use of PowerShell to run the payload: `powershell.exe -ExecutionPolicy Bypass -File C:\ProgramData\pwncrypt.ps1`.
 
@@ -295,7 +340,7 @@ Only techniques supported by collected evidence are included.
 
 **T1105 - Ingress Tool Transfer:** The simulation setup used `Invoke-WebRequest` to transfer the payload from an external web source into `C:\ProgramData`. This is included as scenario-supported context because the download command was not independently recovered from available MDE process telemetry.
 
-### Techniques Not Mapped
+#### Techniques Not Mapped
 
 Excluded because collected evidence did not establish them:
 - User Execution: Malicious File
@@ -308,7 +353,7 @@ Excluded because collected evidence did not establish them:
 
 ---
 
-## 6. Response and Containment
+### Step 6) Response and Containment
 
 After confirming execution, ransomware impact, and environment-wide scope, `ta-zero-day` was isolated through Microsoft Defender for Endpoint. Isolation restricted network communication while preserving connectivity to Microsoft Defender for continued response actions.
 
@@ -317,13 +362,13 @@ After confirming execution, ransomware impact, and environment-wide scope, `ta-z
 **Isolation action comment logged in MDE:**
 > "I confirmed that pwncrypt.ps1 was executed on this endpoint"
 
-### Response Summary
+#### Response Summary
 
 > The affected endpoint, `ta-zero-day`, was isolated after confirming PwnCrypt execution and file-encryption activity. Environment-wide IOC searches did not identify additional affected endpoints.
 
 ---
 
-## 7. Final Assessment
+### Step 7) Final Assessment
 
 PwnCrypt execution and ransomware impact were confirmed on `ta-zero-day`. The payload was executed through `cmd.exe` and PowerShell under the account `alex`. Immediately afterward, multiple CSV files were created or renamed with the `_pwncrypt` marker, and a decryption-instructions file was created.
 
@@ -331,7 +376,7 @@ Environment-wide searches for the discovered indicators did not identify additio
 
 ---
 
-## 8. Improvement Opportunities
+### Step 8) Improvement Opportunities
 
 | Improvement | Purpose |
 |---|---|
@@ -343,7 +388,7 @@ Environment-wide searches for the discovered indicators did not identify additio
 | Create reusable KQL hunting templates | Accelerate future payload, execution, impact, and scope pivots |
 | Provide user-awareness training | Reduce the chance of users executing untrusted commands or files |
 
-### Hunting-Process Improvements
+#### Hunting-Process Improvements
 
 - Begin with the strongest available IOC, then broaden only when necessary.
 - Preserve `Timestamp`, `DeviceName`, command-line, parent-process, user, and path fields during pivots.
@@ -354,7 +399,7 @@ Environment-wide searches for the discovered indicators did not identify additio
 
 ---
 
-## 9. Key Takeaways
+### Step 9) Key Takeaways
 
 - Threat hunting is driven by investigative questions, not by memorizing one large KQL query.
 - File events can provide the timestamp needed to pivot into process telemetry.
@@ -365,7 +410,7 @@ Environment-wide searches for the discovered indicators did not identify additio
 
 ---
 
-## References
+### References
 
 - [MITRE ATT&CK - PowerShell (T1059.001)](https://attack.mitre.org/techniques/T1059/001/)
 - [MITRE ATT&CK - Windows Command Shell (T1059.003)](https://attack.mitre.org/techniques/T1059/003/)
@@ -376,13 +421,6 @@ Environment-wide searches for the discovered indicators did not identify additio
 
 ---
 
-## Disclaimer
+### Disclaimer
 
 This project was completed in a controlled lab environment for defensive cybersecurity training. The ransomware behavior was intentionally simulated on an authorized virtual machine.
-
-
-
-
-
-
-
