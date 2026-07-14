@@ -2,7 +2,7 @@
 
 # PwnCrypt Ransomware Threat Hunt
 
-In this project, we conduct a structured threat hunt for a simulated PwnCrypt ransomware incident using Microsoft Defender for Endpoint Advanced Hunting.
+In this project, I conduct a structured threat hunt for a simulated PwnCrypt ransomware incident using Microsoft Defender for Endpoint Advanced Hunting.
 
 _**Inception State:**_ A newly announced ransomware threat may have reached an environment with immature security controls, requiring investigators to determine whether the payload was present, executed, and caused impact.
 
