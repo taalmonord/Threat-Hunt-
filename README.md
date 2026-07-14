@@ -1,5 +1,3 @@
-# Official [Cyber Range](http://joshmadakor.tech/cyber-range) Project
-
 # PwnCrypt Ransomware Threat Hunt
 
 In this project, I conduct a structured threat hunt for a simulated PwnCrypt ransomware incident using Microsoft Defender for Endpoint Advanced Hunting.
@@ -7,6 +5,8 @@ In this project, I conduct a structured threat hunt for a simulated PwnCrypt ran
 _**Inception State:**_ A newly announced ransomware threat may have reached an environment with immature security controls, requiring investigators to determine whether the payload was present, executed, and caused impact.
 
 _**Completion State:**_ PwnCrypt execution and ransomware impact are confirmed on one endpoint, the discovered indicators are scoped across the environment, the affected endpoint is isolated, and the observed behaviors are mapped to MITRE ATT&CK.
+
+<img width="1448" height="1086" alt="ChatGPT Image Jul 14, 2026, 02_57_30 PM" src="https://github.com/user-attachments/assets/d38c9819-8cd3-429f-99de-aedd86ff95de" />
 
 ---
 
